@@ -18,10 +18,11 @@ const addDetails = (req, res) => {
         fee: fee,
         mobile: mobile,
     };
-    const sql = 'INSERT INTO student SET ?';
+    const sql = 'INSERT INTO Student SET ?';
 
     db.query(sql, details, (error, result) => {
         if (error) {
+            console.log(error.message);
             return res
                 .status(500)
                 .json({ success: false, message: 'Student creation failed' });
@@ -38,9 +39,10 @@ const addDetails = (req, res) => {
 // @route GET api/student/view
 // @access PUBLIC
 const viewDetails = (req, res) => {
-    const sql = 'SELECT * FROM STUDENT';
+    const sql = 'SELECT * FROM Student';
     db.query(sql, (error, result) => {
         if (error) {
+            console.log(error.message);
             return res
                 .status(500)
                 .json({ success: false, message: 'Error connecting to DB' });
@@ -57,7 +59,7 @@ const searchDetails = (req, res) => {
     if (isNaN(id)) {
         return res.status(400).json({ success: false, message: 'Invalid ID' });
     }
-    const sql = 'SELECT * FROM STUDENT WHERE id = ?';
+    const sql = 'SELECT * FROM Student WHERE id = ?';
     db.query(sql, [id], (error, result) => {
         if (error) {
             return res
